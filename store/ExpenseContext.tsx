@@ -37,7 +37,6 @@ const initialState: State = {
 const expenseReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_EXPENSE":
-      console.log("dispatch add", action.payload);
       return {
         ...state,
         expenses: [...state.expenses, action.payload],
@@ -75,7 +74,6 @@ export const ExpenseProvider: React.FC<{ children: ReactNode }> = ({
           throw new Error("Failed to fetch expenses");
         }
         const data: Expense[] = await response.json();
-        console.log("initially fetched", data);
         dispatch({ type: "SET_EXPENSES", payload: { expenses: data } });
       } catch (error) {
         console.error("Error fetching expenses:", error);

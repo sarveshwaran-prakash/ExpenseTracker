@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useExpenseContext } from "../store/ExpenseContext";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import ExpenseModal from "../modals/ExpenseModal";
 import ExpenseList from "../components/ExpenseList";
 import { computeTotalAll, computeTotalAmount } from "../utils/ExpenseUtils";
@@ -26,9 +26,8 @@ const ViewExpensesScreen: React.FC = () => {
   const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [filteredExpenses, setFilteredExpenses] = useState<Expense[]>([]);
-  const [filter, setFilter] = useState<string>(""); // State to hold the filter type
+  const [filter, setFilter] = useState<string>("");
 
-  const navigation = useNavigation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useFocusEffect(
@@ -181,9 +180,9 @@ const ViewExpensesScreen: React.FC = () => {
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           initialExpense={selectedExpense ? selectedExpense.title : ""}
-          initialAmount={selectedExpense ? selectedExpense.amount || "" : ""}
+          initialAmount={selectedExpense ? selectedExpense.amount : ""}
           initialSelectedType={
-            selectedExpense ? selectedExpense.selectedType || "" : ""
+            selectedExpense ? selectedExpense.selectedType : ""
           }
           initialSelectedDate={
             selectedExpense ? selectedExpense.selectedDate || "" : ""

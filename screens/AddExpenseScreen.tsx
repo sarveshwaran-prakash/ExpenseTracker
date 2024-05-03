@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, Button, StyleSheet, Text, Animated } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text } from "react-native";
 import { useExpenseContext } from "../store/ExpenseContext";
 import ExpenseInputModal from "../modals/ExpenseInputModal";
 import CustomButton from "../components/CustomButton";
@@ -7,15 +7,6 @@ import CustomButton from "../components/CustomButton";
 export default function AddExpenseScreen() {
   const { dispatch } = useExpenseContext();
   const [modalVisible, setModalVisible] = useState(false);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  }, []);
 
   const handleAddExpense = async (expense: {
     title: string;
@@ -37,7 +28,6 @@ export default function AddExpenseScreen() {
       }
 
       const data = await response.json();
-      console.log("added expense", data);
       dispatch({ type: "ADD_EXPENSE", payload: data });
       setModalVisible(false);
     } catch (error) {
@@ -47,16 +37,11 @@ export default function AddExpenseScreen() {
 
   return (
     <View style={styles.container}>
-      <Animated.View
-        style={[styles.header, { opacity: fadeAnim }]}
-      ></Animated.View>
       <View style={styles.content}>
         <Text style={styles.title}>Add a New Expense</Text>
         <CustomButton
           title="Add Transactions"
-          // onPress={handleAddExpense}
           onPress={() => setModalVisible(true)}
-          // disabled={title.trim() === "" || amount.trim() === ""}
         />
       </View>
       <ExpenseInputModal
@@ -73,9 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F9F7F7",
   },
-  header: {
-    alignItems: "center",
-  },
+
   content: {
     flex: 1,
     justifyContent: "center",
