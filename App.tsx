@@ -33,6 +33,10 @@ export default function App() {
             tabBarInactiveTintColor: "gray",
             tabBarStyle: {
               backgroundColor: "#DBE2EF",
+              marginBottom: 5,
+              paddingBottom: 5,
+              paddingTop: 5,
+              height: 55,
             },
             tabBarLabelStyle: {
               color: "black",
